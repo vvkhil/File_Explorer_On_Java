@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fileexplorer.FileAdapter;
+import com.example.fileexplorer.OnFileSelectedListener;
 import com.example.fileexplorer.R;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class InternalFragment extends Fragment {
+public class InternalFragment extends Fragment implements OnFileSelectedListener {
 
     private RecyclerView recyclerView;
     private FileAdapter fileAdapter;
@@ -35,6 +36,7 @@ public class InternalFragment extends Fragment {
     private ImageView img_back;
     private TextView tv_pathHolder;
     File storage;
+    String data;
 
     View view;
 
@@ -48,6 +50,14 @@ public class InternalFragment extends Fragment {
 
         String internalStorage = System.getenv("EXTERNAL_STORAGE");
         storage = new File(internalStorage);
+
+        try {
+            data = getArguments().getString("path");
+            File file = new File(data);
+            storage = file;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         tv_pathHolder.setText(storage.getAbsolutePath());
         runtimePermission();
@@ -104,7 +114,24 @@ public class InternalFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         fileList = new ArrayList<>();
         fileList.addAll(findFiles(storage));
-        fileAdapter = new FileAdapter(getContext(), fileList);
+        fileAdapter = new FileAdapter(getContext(), fileList, this);
         recyclerView.setAdapter(fileAdapter);
+    }
+
+    @Override
+    public void onFileClicked(File file) {
+        if(file.isDirectory()){
+            Bundle bundle = new Bundle();
+            bundle.putString("path", file.getAbsolutePath());
+            InternalFragment internalFragment = new InternalFragment();
+            internalFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction().replace(R.id.fragment_container, internalFragment)
+                    .addToBackStack(null).commit();
+        }
+    }
+
+    @Override
+    public void onFileLongClicked(File file) {
+
     }
 }
