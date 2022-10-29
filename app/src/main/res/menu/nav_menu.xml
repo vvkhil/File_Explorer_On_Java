@@ -17,6 +17,11 @@
             android:icon="@drawable/card">
 
         </item>
+        <item android:id="@+id/nav_hardware"
+            android:title="Hardware"
+            android:icon="@drawable/ic_hardware">
+
+        </item>
     </group>
 
     <item android:title="More">

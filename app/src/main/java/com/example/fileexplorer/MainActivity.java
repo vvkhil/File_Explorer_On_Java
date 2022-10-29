@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.fileexplorer.fragments.CardFragment;
+import com.example.fileexplorer.fragments.HardwareFragment;
 import com.example.fileexplorer.fragments.HomeFragment;
 import com.example.fileexplorer.fragments.InternalFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 CardFragment cardFragment = new CardFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         cardFragment).addToBackStack(null).commit();
+                break;
+            case R.id.nav_hardware:
+                HardwareFragment hardwareFragment = new HardwareFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        hardwareFragment).addToBackStack(null).commit();
                 break;
             case R.id.nav_about:
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
