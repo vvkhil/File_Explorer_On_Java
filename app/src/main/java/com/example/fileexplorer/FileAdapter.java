@@ -62,7 +62,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileViewHolder> {
         else if(file.get(position).getName().toLowerCase().endsWith(".pdf")){
             holder.imgFile.setImageResource(R.drawable.ic_pdf);
         }
-        else if(file.get(position).getName().toLowerCase().endsWith(".doc")){
+        else if(file.get(position).getName().toLowerCase().endsWith(".docx")){
             holder.imgFile.setImageResource(R.drawable.ic_docs);
         }
         else if(file.get(position).getName().toLowerCase().endsWith(".mp3")){
@@ -90,7 +90,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileViewHolder> {
         holder.container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                listener.onFileLongClicked(file.get(position));
+                listener.onFileLongClicked(file.get(position), position);
                 return true;
             }
         });

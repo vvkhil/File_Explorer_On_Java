@@ -17,7 +17,7 @@ public class FileOpener {
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
-        if(uri.toString().contains(".doc")){
+        if(uri.toString().contains(".docx")){
             intent.setDataAndType(uri, "application/msword");
         } else if(uri.toString().contains(".pdf")) {
             intent.setDataAndType(uri, "application/pdf");
